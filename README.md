@@ -31,6 +31,15 @@ O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamen
 - **SQLite3:**  
   Banco de dados leve e eficiente, utilizado para armazenar informações dos usuários, histórico de pedidos e outros dados relevantes do sistema.
 
+- **Speech_recognition:**  
+  Biblioteca para capturar o áudio do microfone e converter em texto, tem por principal finalidade reconhecer o que foi dito pelo usuário. (MVP)
+
+- **Pyttsx3:**  
+  Converte texto em voz de maneira offline, cumprindo o papel de interagir com o usuário. (MVP)
+
+  - **Pyaudio:**  
+  Biblioteca utilizada como base e em conjunto com a **speech_recognition** para capturar o som do microfone
+
 ## Resumo
 
 Em resumo, o **CrazIA** é um projeto que une reconhecimento de voz, OCR, processamento de linguagem natural e automação de mensagens para criar uma solução inteligente para pedidos de remédios e assistência pessoal. Através do uso integrado de tecnologias como Flask, Pytesseract, SpaCy, API Zap, PyQt e SQLite3, o sistema promete facilitar a vida dos usuários, proporcionando um método inovador e eficiente de gerenciar pedidos e tratamentos.
