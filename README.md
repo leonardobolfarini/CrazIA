@@ -32,13 +32,13 @@ O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamen
   Banco de dados leve e eficiente, utilizado para armazenar informações dos usuários, histórico de pedidos e outros dados relevantes do sistema.
 
 - **SpeechRecognition:**  
-  Biblioteca utilizada para entender os comandos de voz dos usuários, convertendo a fala em texto, facilitando a interação com o sistema por meio de voz.
+  Biblioteca utilizada para entender os comandos de voz dos usuários, convertendo a fala em texto, facilitando a interação com o sistema por meio de voz. (MVP)
 
 - **PyAudio:**  
-  Responsável pelo gerenciamento de entrada e saída de áudio, sendo fundamental para o funcionamento da captura de áudio em tempo real no sistema de reconhecimento de voz.
+  Responsável pelo gerenciamento de entrada e saída de áudio, sendo fundamental para o funcionamento da captura de áudio em tempo real no sistema de reconhecimento de voz. (MVP)
 
 - **pyttsx3:**  
-  Biblioteca para conversão de texto em fala, permitindo ao sistema dar respostas faladas aos usuários, criando uma interação mais natural e fluída.
+  Biblioteca para conversão de texto em fala, permitindo ao sistema dar respostas faladas aos usuários, criando uma interação mais natural e fluída. (MVP)
 
 ## Resumo
 
