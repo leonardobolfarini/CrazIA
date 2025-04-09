@@ -31,15 +31,15 @@ O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamen
 - **SQLite3:**  
   Banco de dados leve e eficiente, utilizado para armazenar informações dos usuários, histórico de pedidos e outros dados relevantes do sistema.
 
-- **Speech_recognition:**  
-  Biblioteca para capturar o áudio do microfone e converter em texto, tem por principal finalidade reconhecer o que foi dito pelo usuário. (MVP)
+- **SpeechRecognition:**  
+  Biblioteca utilizada para entender os comandos de voz dos usuários, convertendo a fala em texto, facilitando a interação com o sistema por meio de voz.
 
-- **Pyttsx3:**  
-  Converte texto em voz de maneira offline, cumprindo o papel de interagir com o usuário. (MVP)
+- **PyAudio:**  
+  Responsável pelo gerenciamento de entrada e saída de áudio, sendo fundamental para o funcionamento da captura de áudio em tempo real no sistema de reconhecimento de voz.
 
-  - **Pyaudio:**  
-  Biblioteca utilizada como base e em conjunto com a **speech_recognition** para capturar o som do microfone
+- **pyttsx3:**  
+  Biblioteca para conversão de texto em fala, permitindo ao sistema dar respostas faladas aos usuários, criando uma interação mais natural e fluída.
 
 ## Resumo
 
-Em resumo, o **CrazIA** é um projeto que une reconhecimento de voz, OCR, processamento de linguagem natural e automação de mensagens para criar uma solução inteligente para pedidos de remédios e assistência pessoal. Através do uso integrado de tecnologias como Flask, Pytesseract, SpaCy, API Zap, PyQt e SQLite3, o sistema promete facilitar a vida dos usuários, proporcionando um método inovador e eficiente de gerenciar pedidos e tratamentos.
+Em resumo, o **CrazIA** é um projeto que une reconhecimento de voz, OCR, processamento de linguagem natural e automação de mensagens para criar uma solução inteligente para pedidos de remédios e assistência pessoal. Através do uso integrado de tecnologias como Flask, Pytesseract, SpaCy, API Zap, PyQt, SQLite3, SpeechRecognition, PyAudio e pyttsx3, o sistema promete facilitar a vida dos usuários, proporcionando um método inovador e eficiente de gerenciar pedidos e tratamentos.
