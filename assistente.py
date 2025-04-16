@@ -19,9 +19,9 @@ class AssistenteVoz:
             self.estado = "finalizando"
 
             if resultado:
-                resposta = f"{resultado['nome']} custa R${resultado['preco']} na loja {resultado['loja']} em {resultado['cidade']}."
-                if resultado['receita']:
-                    resposta += " Este medicamento exige receita médica."
+                resposta = f"{resultado['nome']}."
+                # if resultado['receita']:
+                #     resposta += " Este medicamento exige receita médica."
                 resposta += " Posso te ajudar com mais alguma coisa?"
                 return resposta
             else:
