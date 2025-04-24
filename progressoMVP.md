@@ -7,17 +7,18 @@
 - Criar e Integrar uma função de `buscar_medicamento()`
 - Chamar a função `buscar_medicamento()` dentro do fluxo de voz
 - Modularizar o codigo
-
+- Resposta dinâmica com dados do banco de dados
+- Adicionei como testar o projeto com texto
+- Adicionar fallback para fala incompreensível
+- Implementar fluxo para medicamentos com receita
+- Formatar a resposta com as informações certas
+- Conversa gera um json com os dados
 
 ## Em dev:
-- Resposta dinâmica com dados do banco de dados
+- Melhorar forma de testar o codigo
 - Melhorar tratamento de erros e exceções (fala incompreensível, silêncio, medicamento não encontrado, etc.)
-- Formatar a resposta com as informações certas
-- Implementar fluxo para medicamentos com receita (tratamento de imagem/whatsapp)
-- Adicionar fallback para fala incompreensível
-- Testar em ambientes com ruído
+- Testar em ambientes com ruído e melhorar a captação de voz
 
 ## Futuro
 - Substituir `speech_recognition` por Whisper
-- IA para detectar intenção em frases livres
-- Integração com WhatsApp (Twilio ou API externa)
+- IA para detectar intenção em frases livres (?)

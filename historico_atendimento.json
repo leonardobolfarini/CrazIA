@@ -1,0 +1,10 @@
+{
+    "historico": [
+        {
+            "pergunta": "Qual o nome do medicamento?",
+            "resposta_usuario": "morfin",
+            "medicamento": "Morfina"
+        }
+    ],
+    "precisa_enviar_receita": false
+}
