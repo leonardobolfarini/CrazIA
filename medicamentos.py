@@ -15,7 +15,7 @@ def buscar_medicamento(nome_medicamento: str):
         """
         cursor.execute(query, (f"%{nome_medicamento.lower().strip()}%",))
         resultado = cursor.fetchone()
-        return resultado  # isso é uma tupla
+        return resultado
     except Exception as e:
         print(f"[Erro DB] Falha na consulta: {e}")
         return None
