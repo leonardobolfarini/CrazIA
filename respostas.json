@@ -1,0 +1,34 @@
+{
+    "saudacao_inicial": [
+        "Olá! Como posso te ajudar hoje?",
+        "Oi! Em que posso ser útil?",
+        "Seja bem-vindo! O que deseja?",
+        "Olá, tudo bem? Me diga como posso ajudar!"
+    ],
+    "agradecimento": [
+        "Obrigado!",
+        "Valeu!",
+        "Muito obrigado!",
+        "Agradeço de coração!"
+    ],
+    "confirmar_medicamento": [
+        "Você gostaria de adicionar {medicamento} ao seu carrinho?",
+        "Deseja incluir {medicamento} na sua compra?",
+        "Confirmando: adicionar {medicamento}?"
+    ],
+    "pedir_receita": [
+        "Este medicamento exige receita médica. Você possui a receita?",
+        "Será necessário enviar a receita médica para {medicamento}. Você tem a receita?",
+        "Para comprar {medicamento}, preciso da sua receita. Pode enviar?"
+    ],
+    "despedida": [
+        "Tudo bem. Estarei por aqui se precisar de algo. Até mais!",
+        "Ok! Até logo!",
+        "Até a próxima, cuide-se!"
+    ],
+    "erro_entendimento": [
+        "Desculpe, não entendi. Você pode repetir?",
+        "Não consegui compreender. Pode me explicar melhor?",
+        "Perdão, pode reformular, por favor?"
+    ]
+}

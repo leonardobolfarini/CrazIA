@@ -1,0 +1,8 @@
+{
+    "palavras_chave": {
+        "iniciar_busca": ["remédio", "medicamento", "procurando", "preciso", "comprar"],
+        "confirmar_sim": ["sim", "claro", "com certeza", "pode adicionar", "quero", "sim por favor"],
+        "confirmar_nao": ["não", "não quero", "obrigado", "valeu", "nada mais", "deixar pra lá"],
+        "encerrar_conversa": ["encerrar", "finalizar", "sair", "até mais", "adeus", "tchau"]
+    }
+}
