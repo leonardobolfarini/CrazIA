@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Usuário</h1>
+        <p><strong>Nome:</strong> {{ usuario['nome'] }}</p>
+        <p><strong>E-mail:</strong> {{ usuario['email'] }}</p>
+        <p><strong>Telefone:</strong> {{ usuario['numero'] }}</p>
+
+        <h2>Imagens Enviadas</h2>
+        <table class="table-imagens">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Caminho da Imagem</th>
+                    <th>Texto Extraído</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for imagem in imagens %}
+                <tr>
+                    <td>{{ imagem['id'] }}</td>
+                    <td>{{ imagem['caminho'] }}</td>
+                    <td>{{ imagem['texto_extraido'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('index') }}" class="back-btn">Voltar à lista de usuários</a>
+    </div>
+</body>
+</html>

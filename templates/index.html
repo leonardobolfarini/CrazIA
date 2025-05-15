@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrazyBot - Dados Completos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Todos os Dados do CrazyBot</h1>
+        <table border="1" cellspacing="0" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Chat ID</th>
+                    <th>Imagem (base64)</th>
+                    <th>Texto Extraído</th>
+                    <th>Nome do Remédio</th>
+                    <th>Frequência (h)</th>
+                    <th>Dias de Uso</th>
+                    <th>Imagem Salva</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dado in dados %}
+                <tr>
+                    <td>{{ dado['id'] }}</td>
+                    <td>{{ dado['nome'] }}</td>
+                    <td>{{ dado['numero'] }}</td>
+                    <td>{{ dado['email'] }}</td>
+                    <td>{{ dado['chat_id'] }}</td>
+                    <td style="max-width: 200px; overflow-wrap: break-word;">{{ dado['imagem_base64'][:100] }}...</td>
+                    <td>{{ dado['texto_extraido'] }}</td>
+                    <td>{{ dado['nome_remedio'] }}</td>
+                    <td>{{ dado['frequencia_horas'] }}</td>
+                    <td>{{ dado['dias_uso'] }}</td>
+                    <td>
+                        {% if dado['caminho'] %}
+                        <img src="{{ url_for('static', filename=dado['caminho'].split('static/')[-1]) }}" alt="imagem" width="100">
+                        {% else %}
+                        Nenhuma
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
