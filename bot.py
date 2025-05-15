@@ -11,7 +11,7 @@ import io
 reader = easyocr.Reader(['pt'])
 
 # Token do seu bot
-chave_api = "7973879039:AAH5nxXbiabLmUmjNhKqXok1lsb9JpXIrW8"
+chave_api = "XXX"
 bot = telebot.TeleBot(chave_api)
 
 # Cria a pasta de imagens se não existir
