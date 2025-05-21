@@ -1,4 +1,4 @@
-from db import conectar
+from database.db import conectar
 
 def buscar_medicamento(nome_medicamento: str):
     conn = conectar()

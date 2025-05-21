@@ -1,4 +1,4 @@
-from assistente import AssistenteVoz
+from assistente.assistente import AssistenteVoz
 
 def escolher_metodo_interacao():
     metodo = input("Escolha o método de interação (1 - Voz, 2 - Texto): ")

@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 #from assistente import AssistenteVoz
-from voz import ouvir, falar
+from assistente.voz import ouvir, falar
 
 app = Flask(__name__)
 
