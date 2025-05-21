@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
-#from assistente import AssistenteVoz
+import os
+import json
+from assistente.assistente import AssistenteVoz
 from assistente.voz import ouvir, falar
 
 app = Flask(__name__)
+assistente = AssistenteVoz()
 
 # @app.route("/voz", methods=["POST"])
 # def voz():
@@ -27,14 +30,47 @@ app = Flask(__name__)
 def teste_voz():
     try:
         entrada = ouvir()
-        if entrada:
-            resposta = f"Você disse: {entrada}"
-        else:
-            resposta = "Nenhuma entrada detectada."
-        falar(resposta)
-        return jsonify({"entrada": entrada, "resposta": resposta})
+        resposta = assistente.processar_conversa(entrada)
+        return jsonify({
+            "entrada": entrada,
+            "resposta": resposta
+        })
     except Exception as e:
-        return jsonify({"entrada": "", "resposta": f"Erro ao processar voz: {e}"})
+        return jsonify({
+            "entrada": "",
+            "resposta": f"Erro ao processar voz: {str(e)}"
+        }), 500
+    
+
+@app.route("/assistente", methods=["GET"])
+def rota_assistente_completa():
+    historico = []
+
+    if not assistente.ligado:
+        assistente.ligado = True
+        assistente.estado = "inicial"
+
+    while assistente.ligado:
+        entrada = ouvir()
+        if not entrada:
+            continue
+
+        resposta = assistente.processar_conversa(entrada)
+        falar(resposta)
+
+        historico.append({"entrada": entrada, "resposta": resposta})
+
+        if not assistente.ligado:
+            break
+        
+    caminho_pasta = os.path.join(os.path.dirname(__file__), "data")
+    os.makedirs(caminho_pasta, exist_ok=True)
+
+    caminho_arquivo = os.path.join(caminho_pasta, "historico_conversa.json")
+    with open(caminho_arquivo, "w", encoding="utf-8") as f:
+        json.dump(historico, f, ensure_ascii=False, indent=4)
+
+    return jsonify(historico)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -12,8 +12,8 @@ def falar(mensagem: str):
 def ouvir() -> str:
     with sr.Microphone() as source:
         print("[CrazIA] Aguardando sua fala...")
-        audio = reconhecedor.listen(source)
-
+        reconhecedor.adjust_for_ambient_noise(source, duration=1)
+        audio = reconhecedor.listen(source, timeout=5, phrase_time_limit=15)
     try:
         texto = reconhecedor.recognize_google(audio, language="pt-BR")
         print(f"[user] {texto}")

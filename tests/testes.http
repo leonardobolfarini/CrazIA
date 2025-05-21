@@ -1,7 +1,11 @@
-### Teste de texto para o assistente
-POST http://127.0.0.1:5000/teste-texto
-Content-Type: application/json
+### Teste de voz para o assistente
+GET http://127.0.0.1:5000/assistente
 
-{
-  "entrada": "estou procurando dipirona"
-}
+
+### Teste de texto para o assistente
+# POST http://127.0.0.1:5000/teste-texto
+# Content-Type: application/json
+
+# {
+#   "entrada": "estou procurando dipirona"
+# }
