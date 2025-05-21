@@ -18,9 +18,26 @@ def voz():
 
 @app.route("/teste-texto", methods=["POST"])
 def teste_texto():
-    entrada = request.json.get("entrada")
+    data = request.get_json()
+    entrada = data.get("entrada")
     resposta = assistente.processar_conversa(entrada)
     return jsonify({"resposta": resposta})
+
+@app.route("/teste-voz", methods=["GET"])
+def teste_voz():
+    resposta = ""
+    try:
+        entrada = assistente.ouvir()
+        if entrada:
+            resposta = assistente.processar_conversa(entrada)
+        else:
+            resposta = "Nenhuma entrada detectada."
+    except Exception as e:
+        resposta = f"Erro ao processar voz: {e}"
+    
+    return jsonify({"entrada": entrada, "resposta": resposta})
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
