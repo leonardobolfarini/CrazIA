@@ -6,19 +6,25 @@ import base64
 from PIL import Image
 import easyocr
 import io
+from twilio.rest import Client
+import threading
+import psutil
+import sys
 
-# Inicializa EasyOCR para português
 reader = easyocr.Reader(['pt'])
+bot_running = False
 
-# Token do seu bot
-chave_api = "XXX"
+
+chave_api = "KEY"
 bot = telebot.TeleBot(chave_api)
+account_sid = 'KEY'
+auth_token = 'KEY'
+twilio_from = 'KEY'
+client = Client(account_sid, auth_token)
 
-# Cria a pasta de imagens se não existir
 if not os.path.exists("imagens"):
     os.makedirs("imagens")
 
-# Banco de dados com tabela única
 def conectar_banco():
     conn = sqlite3.connect("crazybot.db")
     cursor = conn.cursor()
@@ -45,6 +51,11 @@ usuarios = {}
 # Função para salvar todos os dados
 def salvar_dados_completos(chat_id, nome, numero, email, caminho_imagem, imagem_base64, texto_extraido, lista_remedios):
     conn, cursor = conectar_banco()
+    cursor.execute("SELECT id FROM dados WHERE chat_id = ? AND nome_remedio = ?", 
+                  (chat_id, lista_remedios[0]['nome']))
+    if cursor.fetchone():
+        return False
+    
     for remedio in lista_remedios:
         cursor.execute('''
             INSERT INTO dados (
@@ -95,14 +106,12 @@ def extrair_informacoes_receita(texto):
 
     return dados
 
-# Validações
 def validar_telefone(telefone):
     return bool(re.match(r"\(\d{2}\) \d{5}-\d{4}", telefone))
 
 def validar_email(email):
     return bool(re.search(r"@hotmail.com|@gmail.com", email))
 
-# Mensagens sequenciais
 def pedir_nome(chat_id):
     bot.send_message(chat_id, "Para começarmos, me diga seu nome? (Somente letras)")
 
@@ -112,9 +121,53 @@ def pedir_telefone(chat_id):
 def pedir_email(chat_id):
     bot.send_message(chat_id, "Informe também seu email? (Precisa conter @hotmail.com ou @gmail.com)")
 
-# Início do atendimento
-@bot.message_handler(func=lambda msg: msg.text in ["Bom dia", "Boa tarde", "Boa noite"])
+def enviar_sms(mensagem, numero_destino):
+    message = client.messages.create(
+        body=mensagem,
+        from_=twilio_from,
+        to=numero_destino
+    )
+    print(f"SMS enviado: {message.sid}")
+
+@bot.message_handler(func=lambda msg: msg.text.lower() == 'encerrar')
+def encerrar_contato(message):
+    chat_id = message.chat.id
+    
+    # Remover o usuário da lista de atendimento
+    if chat_id in usuarios:
+        # Limpar todos os dados do usuário
+        usuarios.pop(chat_id, None)
+        
+        # Opcional: Limpar dados no banco de dados se necessário
+        try:
+            conn, cursor = conectar_banco()
+            cursor.execute("DELETE FROM dados WHERE chat_id = ?", (chat_id,))
+            conn.commit()
+            conn.close()
+        except Exception as e:
+            print(f"Erro ao limpar dados do usuário {chat_id}: {str(e)}")
+    
+    # Enviar mensagem de confirmação
+    bot.send_message(chat_id, "✅ Seu atendimento foi completamente encerrado. "
+                           "Todos os seus dados foram removidos.\n"
+                           "Se precisar de ajuda novamente, digite /start para iniciar um novo atendimento.")
+    
+    # Registrar o encerramento
+    print(f"Atendimento completamente encerrado para o chat_id: {chat_id}")
+    print(f"Usuários ativos: {len(usuarios)}")
+
+
+@bot.message_handler(commands=['start'])
+def handle_start(message):
+    if message.chat.id in usuarios and 'nome' in usuarios[message.chat.id]:
+        bot.reply_to(message, "Já iniciamos seu cadastro!")
+        return
+
+@bot.message_handler(func=lambda msg: msg.chat.id not in usuarios)
 def iniciar_atendimento(mensagem):
+    if mensagem.text.startswith('/'):
+        return
+    
     chat_id = mensagem.chat.id
     usuarios[chat_id] = {}
     bot.send_message(chat_id, "Olá! Sou o CrazyBot e vou te auxiliar com sua receita médica.")
@@ -128,6 +181,7 @@ def receber_nome(mensagem):
         pedir_telefone(chat_id)
     else:
         bot.send_message(chat_id, "Nome inválido! Digite apenas letras.")
+
 
 @bot.message_handler(func=lambda msg: msg.chat.id in usuarios and 'numero' not in usuarios[msg.chat.id])
 def receber_telefone(mensagem):
@@ -182,9 +236,53 @@ def receber_foto(mensagem):
         salvar_dados_completos(chat_id, nome, numero, email, nome_arquivo, imagem_base64, texto_extraido, info_remedios)
         for item in info_remedios:
             bot.send_message(chat_id, f"💊 Remédio: {item['nome']}\nFrequência: {item['frequencia']}h\nDuração: {item['dias']} dias")
+            usuarios[chat_id]['ultima_info_remedio'] = info_remedios
+            bot.send_message(chat_id, "Deseja que eu inicie o controle do seu tratamento agora? (Responda com 'Sim' ou 'Não')")
+
     else:
         bot.send_message(chat_id, "⚠️ Não consegui identificar os dados do medicamento na receita.")
+        
+    
+@bot.message_handler(func=lambda msg: True)
+def tratar_resposta_tratamento(msg):
+    chat_id = msg.chat.id
+    if chat_id not in usuarios or 'ultima_info_remedio' not in usuarios[chat_id]:
+        return
 
-# Iniciar o bot
+    resposta = msg.text.strip().lower()
+
+    if resposta == "sim":
+        dados = usuarios[chat_id]
+        numero = dados['numero'].replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
+        numero = f"+55{numero[-11:]}" 
+        
+        for remedio in dados['ultima_info_remedio']:
+            mensagem_sms = f"Seu tratamento com {remedio['nome']} começou. Você receberá lembretes a cada {remedio['frequencia']}h por {remedio['dias']} dias."
+            enviar_sms(mensagem_sms, numero)
+        
+        bot.send_message(chat_id, "✅ Obrigado! Seu tratamento foi iniciado. Estarei te lembrando por SMS. Até logo!")
+    else:
+        bot.send_message(chat_id, "✅ Tudo bem! Obrigado pelo contato. Quando quiser iniciar, é só me chamar.")
+
+    usuarios[chat_id].pop('ultima_info_remedio', None)
+
+
+def run_bot():
+    global bot_running
+    if not bot_running:
+        bot_running = True
+        print("Bot iniciando...")
+        bot.infinity_polling()
+    else:
+        print("Bot já está em execução")
+
+
 if __name__ == "__main__":
-    bot.infinity_polling()
+    # Verificar se já está rodando
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        if 'python' in proc.info['name'] and 'bot.py' in ' '.join(proc.info['cmdline'] or []):
+            if proc.info['pid'] != os.getpid():
+                print(f"Já existe uma instância rodando (PID: {proc.info['pid']})")
+                sys.exit(1)
+    
+    run_bot()
