@@ -1,6 +1,7 @@
 # Miscellaneous
 *.class
 .env
+*__pycache__
 *.log
 *.pyc
 *.swp
