@@ -1,8 +1,8 @@
 {
     "palavras_chave": {
-        "iniciar_busca": ["remédio", "medicamento", "procurando", "preciso", "comprar"],
+        "iniciar_busca": ["remedio", "medicamento", "procurando", "preciso", "comprar"],
         "confirmar_sim": ["sim", "claro", "com certeza", "pode adicionar", "quero", "sim por favor"],
-        "confirmar_nao": ["não", "não quero", "obrigado", "valeu", "nada mais", "deixar pra lá"],
-        "encerrar_conversa": ["encerrar", "finalizar", "sair", "até mais", "adeus", "tchau"]
+        "confirmar_nao": ["nao", "nao quero", "obrigado", "valeu", "nada mais", "deixar pra la"],
+        "encerrar_conversa": ["encerrar", "finalizar", "sair", "ate mais", "adeus", "tchau"]
     }
 }
