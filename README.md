@@ -22,9 +22,6 @@ O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamen
 - **SpaCy:**  
   Biblioteca de processamento de linguagem natural (NLP) que analisa e interpreta o texto extraído, ajudando a identificar comandos, nomes, dosagens e outras informações pertinentes.
 
-- **API Zap:**  
-  Integração com a API para envio de mensagens via WhatsApp, permitindo a comunicação direta com os usuários através de lembretes e notificações automatizadas.
-
 - **PyQt:**  
   Utilizado para desenvolver uma interface gráfica amigável, que facilita o cadastro e gerenciamento de dados dos usuários, como nome e telefone.
 
@@ -42,4 +39,4 @@ O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamen
 
 ## Resumo
 
-Em resumo, o **CrazIA** é um projeto que une reconhecimento de voz, OCR, processamento de linguagem natural e automação de mensagens para criar uma solução inteligente para pedidos de remédios e assistência pessoal. Através do uso integrado de tecnologias como Flask, Pytesseract, SpaCy, API Zap, PyQt, SQLite3, SpeechRecognition, PyAudio e pyttsx3, o sistema promete facilitar a vida dos usuários, proporcionando um método inovador e eficiente de gerenciar pedidos e tratamentos.
+Em resumo, o **CrazIA** é um projeto que une reconhecimento de voz, OCR, processamento de linguagem natural e automação de mensagens para criar uma solução inteligente para pedidos de remédios e assistência pessoal. Através do uso integrado de tecnologias como Flask, Pytesseract, SpaCy, PyQt, SQLite3, SpeechRecognition, PyAudio e pyttsx3, o sistema promete facilitar a vida dos usuários, proporcionando um método inovador e eficiente de gerenciar pedidos e tratamentos.
