@@ -1,0 +1,13 @@
+name: crazia
+description: App com botões para Telegram e chamada
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.1.12
+
+flutter:
+  uses-material-design: true
