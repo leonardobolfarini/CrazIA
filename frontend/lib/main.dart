@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'api_voz_service.dart';
 void main() {
   runApp(MyApp());
 }
@@ -41,7 +41,6 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.themeNotifier});
 
   final String telegramUsername = 'seu_usuario_telegram'; // Substitua com seu @
-  final String telefoneAssistente = '+5511999999999'; // Substitua com DDI + DDD
 
   void abrirTelegram() async {
     final url = 'https://t.me/$telegramUsername';
@@ -52,14 +51,10 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  void ligarAssistente() async {
-    final url = 'tel:$telefoneAssistente';
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      debugPrint('Não foi possível iniciar a chamada');
-    }
+  void ligarAssistente(BuildContext context) {
+    ApiService.iniciarConversaComAssistente(context);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +133,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               FilledButton.icon(
-                onPressed: ligarAssistente,
+                onPressed: () => ligarAssistente(context),
                 icon: const Icon(Icons.phone_outlined),
                 label: const Text('Ligar para Assistente'),
                 style: FilledButton.styleFrom(

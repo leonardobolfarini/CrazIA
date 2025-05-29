@@ -1,4 +1,4 @@
-package com.example.crazia
+package com.example.frontend_crazia
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,13 +1,21 @@
-name: crazia
-description: App com botões para Telegram e chamada
+name: frontend_crazia
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ^3.8.0
 
 dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.1.12
+  http: ^0.13.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

@@ -64,7 +64,7 @@ class AssistenteVoz:
                 self.estado = "esperando_medicamento"
                 return "Claro, qual o nome do medicamento que você está procurando?"
             else:
-                print(self.palavras_chave)
+                #print(self.palavras_chave)
                 return self.resposta("saudacao_inicial")
 
         elif self.estado == "esperando_medicamento":
