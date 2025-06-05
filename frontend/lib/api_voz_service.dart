@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class ApiService {
-  static const String baseUrl = 'http://10.0.2.2:5000'; // Altere se for emulador ou dispositivo real
+  static const String baseUrl = 'http://10.0.2.2:5000'; // Altere se for dispositivo real
 
   static Future<void> iniciarConversaComAssistente(BuildContext context) async {
     final url = Uri.parse('$baseUrl/assistente');
@@ -13,14 +13,14 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final resposta = data['resposta'];
+        final mensagem = data['mensagem'] ?? 'Assistente iniciada.';
 
-        // Mostra a resposta da assistente
+        // Exibe confirmação de que a assistente foi iniciada
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
             title: const Text('CrazIA'),
-            content: Text(resposta),
+            content: Text(mensagem),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),

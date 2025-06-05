@@ -2,8 +2,12 @@
     "historico": [
         {
             "pergunta": "Qual o nome do medicamento?",
-            "resposta_usuario": "morfin",
-            "medicamento": "Morfina"
+            "resposta_usuario": "dipirona",
+            "medicamento": "Dipirona Sódica"
+        },
+        {
+            "medicamento": "Dipirona Sódica",
+            "adicionado_ao_carrinho": true
         }
     ],
     "precisa_enviar_receita": false

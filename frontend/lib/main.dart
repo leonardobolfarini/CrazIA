@@ -51,10 +51,21 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  void ligarAssistente(BuildContext context) {
-    ApiService.iniciarConversaComAssistente(context);
-  }
+void ligarAssistente(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (_) => const AlertDialog(
+      title: Text('Iniciando Assistente'),
+      content: Text('Aguarde enquanto a CrazIA inicia a conversa por voz.'),
+    ),
+  );
 
+  // Espera 1 segundo só para deixar a UI respirar, e então inicia a chamada
+  Future.delayed(const Duration(seconds: 1), () {
+    Navigator.pop(context); // Fecha o popup de aviso
+    ApiService.iniciarConversaComAssistente(context);
+  });
+}
 
   @override
   Widget build(BuildContext context) {

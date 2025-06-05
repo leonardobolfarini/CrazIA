@@ -2,7 +2,7 @@
     "palavras_chave": {
         "iniciar_busca": ["remedio", "medicamento", "procurando", "preciso", "comprar"],
         "confirmar_sim": ["sim", "claro", "com certeza", "pode adicionar", "quero", "sim por favor"],
-        "confirmar_nao": ["nao", "nao quero", "obrigado", "valeu", "nada mais", "deixar pra la"],
+        "confirmar_nao": ["nao", "não", "não quero", "obrigado", "valeu", "nada mais", "deixar pra la", "finalizar"],
         "encerrar_conversa": ["encerrar", "finalizar", "sair", "ate mais", "adeus", "tchau"]
     }
 }

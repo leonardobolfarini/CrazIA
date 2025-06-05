@@ -21,11 +21,11 @@ def iniciar_com_voz():
     assistente.iniciar()
 
 if __name__ == "__main__":
-    metodo = escolher_metodo_interacao()
-    
-    if metodo == "1":
-        iniciar_com_voz()
-    elif metodo == "2":
-        testar_com_texto()
-    else:
-        print("Método inválido. Por favor, escolha 1 para voz ou 2 para texto.")
+    iniciar_com_voz()
+    # metodo = escolher_metodo_interacao()
+    # if metodo == "1":
+    #     iniciar_com_voz()
+    # elif metodo == "2":
+    #     testar_com_texto()
+    # else:
+    #     print("Método inválido. Por favor, escolha 1 para voz ou 2 para texto.")

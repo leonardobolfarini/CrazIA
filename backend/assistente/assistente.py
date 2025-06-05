@@ -50,10 +50,10 @@ class AssistenteVoz:
                 return melhor
         return None
 
-    # def salvar_json(self):
-    #     caminho = os.path.join("data", "historico_atendimento.json")
-    #     with open(caminho, "w", encoding="utf-8") as f:
-    #         json.dump(self.historico, f, ensure_ascii=False, indent=4)
+    def salvar_json(self):
+        caminho = os.path.join("data", "historico_atendimento.json")
+        with open(caminho, "w", encoding="utf-8") as f:
+            json.dump(self.historico, f, ensure_ascii=False, indent=4)
 
     def processar_conversa(self, entrada: str) -> str:
         entrada = unidecode(entrada).lower().strip()
@@ -118,22 +118,22 @@ class AssistenteVoz:
                 self.estado = "esperando_medicamento"
                 return "Claro! Qual o próximo medicamento que você está procurando?"
             elif self.contem_palavra_chave(entrada, "confirmar_nao") or self.contem_palavra_chave(entrada, "encerrar_conversa"):
+                self.salvar_json()
                 self.ligado = False
-                #self.salvar_json()
                 return self.resposta("despedida")
             else:
                 return "Desculpe, não entendi. Você quer procurar outro medicamento ou encerrar a conversa?"
 
         return self.resposta("erro_entendimento")
 
-    # def iniciar(self):
-    #     falar("Olá! Como posso te ajudar hoje?")
-    #     while self.ligado:
-    #         entrada = ouvir()
-    #         if not entrada:
-    #             continue
-    #         resposta = self.processar_conversa(entrada)
-    #         falar(resposta)
+    def iniciar(self):
+        falar("Olá! Como posso te ajudar hoje?")
+        while self.ligado:
+            entrada = ouvir()
+            if not entrada:
+                continue
+            resposta = self.processar_conversa(entrada)
+            falar(resposta)
 
     def testar_com_texto(self):
         print("Digite 'sair' para encerrar.")
