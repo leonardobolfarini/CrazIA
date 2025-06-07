@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status do Sistema - CrazyBot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .status-card {
+            transition: all 0.3s ease;
+        }
+        .online {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+        .offline {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+        .badge-online {
+            background-color: #28a745;
+        }
+        .badge-offline {
+            background-color: #dc3545;
+        }
+        .data-table {
+            font-size: 0.9rem;
+        }
+        .refresh-btn {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">Status do Sistema</h1>
+            <button id="refreshBtn" class="btn btn-sm btn-outline-primary refresh-btn">
+                <i class="bi bi-arrow-clockwise"></i> Atualizar
+            </button>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card status-card {{ 'online' if bot_status == 'Online' else 'offline' }}">
+                    <div class="card-body">
+                        <h5 class="card-title">Bot do Telegram</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="card-text mb-0">Status do serviço de atendimento</p>
+                            <span class="badge {{ 'badge-online' if bot_status == 'Online' else 'badge-offline' }} rounded-pill">
+                                {{ bot_status }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card status-card {{ 'online' if sms_status == 'Online' else 'offline' }}">
+                    <div class="card-body">
+                        <h5 class="card-title">Serviço SMS</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="card-text mb-0">Status do serviço de mensagens</p>
+                            <span class="badge {{ 'badge-online' if sms_status == 'Online' else 'badge-offline' }} rounded-pill">
+                                {{ sms_status }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Dados Cadastrados</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive data-table">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Chat ID</th>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Remédio</th>
+                                <th>Frequência</th>
+                                <th>Dias</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in dados %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.chat_id }}</td>
+                                <td>{{ item.nome }}</td>
+                                <td>{{ item.numero }}</td>
+                                <td>{{ item.nome_remedio }}</td>
+                                <td>{{ item.frequencia_horas }}h</td>
+                                <td>{{ item.dias_uso }} dias</td>
+                                <td>
+                                    <a href="{{ url_for('detalhes', chat_id=item.chat_id) }}" class="btn btn-sm btn-info">
+                                        Detalhes
+                                    </a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="8" class="text-center">Nenhum dado cadastrado</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Ações Rápidas</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{{ url_for('api_dados') }}" class="btn btn-outline-primary" target="_blank">
+                        Visualizar API de Dados
+                    </a>
+                    <a href="https://t.me/{{ bot_username }}" class="btn btn-outline-success" target="_blank">
+                        Acessar Bot no Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Atualizar a página a cada 30 segundos
+        setTimeout(() => {
+            window.location.reload();
+        }, 30000);
+
+        // Botão de atualização manual
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

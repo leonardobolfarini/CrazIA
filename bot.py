@@ -10,16 +10,17 @@ from twilio.rest import Client
 import threading
 import psutil
 import sys
+from dotenv import load_dotenv
 
 reader = easyocr.Reader(['pt'])
 bot_running = False
 
 
-chave_api = "KEY"
+chave_api = os.getenv("KEY_TELEGRAM")
 bot = telebot.TeleBot(chave_api)
-account_sid = 'KEY'
-auth_token = 'KEY'
-twilio_from = 'KEY'
+account_sid = os.getenv("ID_TWILIO")
+auth_token = os.getenv("KEY_TWILIO")
+twilio_from = os.getenv("NUMERO_TWILIO")
 client = Client(account_sid, auth_token)
 
 if not os.path.exists("imagens"):
@@ -48,7 +49,6 @@ def conectar_banco():
 
 usuarios = {}
 
-# Função para salvar todos os dados
 def salvar_dados_completos(chat_id, nome, numero, email, caminho_imagem, imagem_base64, texto_extraido, lista_remedios):
     conn, cursor = conectar_banco()
     cursor.execute("SELECT id FROM dados WHERE chat_id = ? AND nome_remedio = ?", 
@@ -71,7 +71,6 @@ def salvar_dados_completos(chat_id, nome, numero, email, caminho_imagem, imagem_
     conn.commit()
     conn.close()
 
-# Extração das informações da receita
 def extrair_informacoes_receita(texto):
     linhas = texto.split('\n')
     dados = []
@@ -133,12 +132,9 @@ def enviar_sms(mensagem, numero_destino):
 def encerrar_contato(message):
     chat_id = message.chat.id
     
-    # Remover o usuário da lista de atendimento
     if chat_id in usuarios:
-        # Limpar todos os dados do usuário
         usuarios.pop(chat_id, None)
         
-        # Opcional: Limpar dados no banco de dados se necessário
         try:
             conn, cursor = conectar_banco()
             cursor.execute("DELETE FROM dados WHERE chat_id = ?", (chat_id,))
@@ -147,12 +143,10 @@ def encerrar_contato(message):
         except Exception as e:
             print(f"Erro ao limpar dados do usuário {chat_id}: {str(e)}")
     
-    # Enviar mensagem de confirmação
     bot.send_message(chat_id, "✅ Seu atendimento foi completamente encerrado. "
                            "Todos os seus dados foram removidos.\n"
                            "Se precisar de ajuda novamente, digite /start para iniciar um novo atendimento.")
     
-    # Registrar o encerramento
     print(f"Atendimento completamente encerrado para o chat_id: {chat_id}")
     print(f"Usuários ativos: {len(usuarios)}")
 
@@ -278,7 +272,6 @@ def run_bot():
 
 
 if __name__ == "__main__":
-    # Verificar se já está rodando
     for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
         if 'python' in proc.info['name'] and 'bot.py' in ' '.join(proc.info['cmdline'] or []):
             if proc.info['pid'] != os.getpid():

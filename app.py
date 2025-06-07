@@ -10,16 +10,13 @@ import atexit
 import logging
 import os
 
-# Configuração básica de logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Variáveis globais para armazenar os processos
 bot_process = None
 sms_process = None
 
 def create_app():
-    # Cria a instância do Flask
     flask_app = Flask(__name__)
     CORS(flask_app)
 
@@ -31,8 +28,6 @@ def create_app():
 
     def start_services():
         global bot_process, sms_process
-
-        # Verificar se já está rodando
         for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
             cmdline = ' '.join(proc.info['cmdline'] or [])
             if 'python' in proc.info['name'] and 'bot.py' in cmdline and proc.info['pid'] != os.getpid():
@@ -41,15 +36,10 @@ def create_app():
                 break
         else:
             bot_process = subprocess.Popen([sys.executable, "bot.py"])
-    
-    # Mesma verificação para o SMS
-    # ...
 
         try:
-            # Iniciar o bot.py
             bot_process = subprocess.Popen([sys.executable, "bot.py"])
             
-            # Iniciar o sms.py
             sms_process = subprocess.Popen([sys.executable, "sms.py"])
             
             logger.info("Serviços iniciados: Bot do Telegram e SMS")

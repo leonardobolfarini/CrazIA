@@ -1,0 +1,31 @@
+# CORE
+python-dotenv==1.0.0
+Flask==2.3.2
+Werkzeug==2.3.7
+
+# TELEGRAM
+python-telegram-bot==20.3
+httpx==0.24.1
+
+# OCR & IMAGE PROCESSING
+easyocr==1.7.0
+Pillow==10.0.1
+numpy==1.24.3
+opencv-python-headless==4.7.0.72
+
+# SMS SERVICE
+twilio==8.3.0
+schedule==1.2.0
+
+# DATABASE
+sqlite3==3.39.4  # Built-in
+alembic==1.11.1  # Optional for migrations
+
+# UTILITIES
+psutil==5.9.5
+six==1.16.0
+python-dateutil==2.8.2
+
+# DEVELOPMENT
+gunicorn==20.1.0  # For production deployment
+pytest==7.4.0     # Testing
