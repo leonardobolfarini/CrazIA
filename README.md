@@ -1,42 +1,51 @@
 # CrazIA
 
-**CrazIA** é um projeto inovador que visa desenvolver uma inteligência artificial capaz de interpretar comandos de voz para realizar pedidos de remédios e atuar como assistente pessoal. O objetivo é criar uma solução completa que facilite o acesso a medicamentos e auxilie os clientes na administração de seus tratamentos, enviando lembretes via WhatsApp para garantir a adesão correta ao tratamento.
+**CrazIA** é um projeto que visa desenvolver uma solução inteligente capaz de interpretar comandos de voz, ler prescrições médicas por imagem e atuar como assistente pessoal na gestão de tratamentos de saúde. O objetivo é democratizar o acesso a medicamentos e auxiliar os usuários na adesão correta aos tratamentos, com recursos como pedidos automatizados e envio de lembretes.
+
+---
 
 ## Visão Geral
 
-O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamentos são realizados. Por meio de um sistema inteligente, o usuário poderá:
+O **CrazIA** foi concebido para transformar a forma como os pedidos de medicamentos são realizados e como os usuários interagem com seus tratamentos. A solução permite:
 
-- **Fazer pedidos via chamada de voz:** O sistema capta o comando de voz, convertendo-o em texto para processamento.
-- **Processar imagens:** Caso seja necessário, imagens contendo informações relevantes (como prescrições) poderão ser enviadas e convertidas em texto.
-- **Interpretar dados:** Com o auxílio de técnicas avançadas de processamento de linguagem natural, o sistema extrai as informações essenciais do texto obtido.
-- **Enviar lembretes automatizados:** Após o processamento do pedido, notificações via Telegram são enviadas para que o cliente se lembre de tomar seus medicamentos nos horários corretos.
+- **Pedidos por voz:** O sistema reconhece comandos de voz, converte em texto e interpreta os dados para processar pedidos.
+- **Leitura de imagens de receitas:** Utiliza OCR para extrair informações de prescrições médicas e bulas.
+- **Interpretação inteligente:** Aplica técnicas de processamento de linguagem para compreender e extrair informações essenciais dos dados coletados.
+- **Lembretes automatizados:** Envia lembretes por SMS e notificações push para lembrar os usuários de tomar seus medicamentos nos horários certos.
+
+---
 
 ## Tecnologias Utilizadas
 
-- **Flask:**  
-  Utilizado como framework web, o Flask gerencia o upload de imagens e a integração entre os diferentes módulos do sistema.
+- **Flask**  
+  Framework web utilizado para gerenciar a API, upload de imagens e integração entre os módulos do sistema.
 
-- **Pytesseract:**  
-  Ferramenta de OCR (Reconhecimento Óptico de Caracteres) que converte imagens em texto, possibilitando a extração de informações de documentos ou prescrições.
+- **EasyOCR**  
+  Tecnologia de OCR para converter imagens de receitas e bulas em texto legível e processável.
 
-- **SpaCy:**  
-  Biblioteca de processamento de linguagem natural (NLP) que analisa e interpreta o texto extraído, ajudando a identificar comandos, nomes, dosagens e outras informações pertinentes.
+- **SpeechRecognition**  
+  Biblioteca usada para transcrever comandos de voz dos usuários, facilitando a interação por fala.
 
-- **PyQt:**  
-  Utilizado para desenvolver uma interface gráfica amigável, que facilita o cadastro e gerenciamento de dados dos usuários, como nome e telefone.
+- **pyttsx3**  
+  Biblioteca de conversão de texto em fala, permitindo que o sistema responda verbalmente ao usuário.
 
-- **PostgreSQL:**  
-  Banco de dados leve e eficiente, utilizado para armazenar informações dos usuários, histórico de pedidos e outros dados relevantes do sistema.
+- **Rapidfuzz**  
+  Usado para fuzzy matching, facilitando o reconhecimento de palavras com erros de pronúncia ou digitação.
 
-- **SpeechRecognition:**  
-  Biblioteca utilizada para entender os comandos de voz dos usuários, convertendo a fala em texto, facilitando a interação com o sistema por meio de voz.
+- **OneSignal**  
+  Responsável pelo envio de notificações push no aplicativo mobile, informando lembretes, atualizações e confirmações de pedidos.
 
-- **pyttsx3:**  
-  Biblioteca para conversão de texto em fala, permitindo ao sistema dar respostas faladas aos usuários, criando uma interação mais natural e fluída.
+- **Twilio**  
+  Utilizado para envio de mensagens SMS automatizadas, garantindo que o usuário receba lembretes mesmo fora do app.
 
-- **Rapidfuzz:**  
-  Biblioteca usada para comparação aproximada de strings, também conhecido como fuzzy matching.
+- **Flutter**  
+  Framework utilizado na criação da interface mobile, proporcionando uma experiência intuitiva e acessível.
+
+- **PostgreSQL**  
+  Banco de dados relacional utilizado para armazenar dados dos usuários, prescrições, histórico de pedidos e notificações.
+
+---
 
 ## Resumo
 
-Em resumo, o **CrazIA** é um projeto que une reconhecimento de voz, OCR, processamento de linguagem natural e automação de mensagens para criar uma solução inteligente para pedidos de remédios e assistência pessoal. Através do uso integrado de tecnologias como Flask, Pytesseract, SpaCy, PyQt, SQLite3, SpeechRecognition, PyAudio e pyttsx3, o sistema promete facilitar a vida dos usuários, proporcionando um método inovador e eficiente de gerenciar pedidos e tratamentos.
+O **CrazIA** é uma solução integrada que combina reconhecimento de voz, leitura de prescrições por imagem, processamento inteligente de dados e envio automatizado de mensagens. Utilizando tecnologias como Flask, EasyOCR, SpeechRecognition, pyttsx3, Rapidfuzz, OneSignal, Twilio, Flutter e PostgreSQL, o sistema oferece uma nova maneira de realizar pedidos de medicamentos e acompanhar tratamentos de forma prática e acessível. O projeto visa melhorar a adesão aos tratamentos médicos, facilitar o acesso a medicamentos e oferecer um suporte personalizado ao bem-estar do usuário.
