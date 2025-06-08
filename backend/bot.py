@@ -3,6 +3,7 @@ import sqlite3
 import re
 import os
 import base64
+from dotenv import load_dotenv
 from PIL import Image
 import easyocr
 import io
@@ -13,13 +14,12 @@ import sys
 
 reader = easyocr.Reader(['pt'])
 bot_running = False
-
-
-chave_api = "KEY"
+load_dotenv()
+chave_api = os.getenv("TELEGRAM_KEY")
+account_sid = os.getenv("ACCOUNT_ID")
+auth_token = os.getenv("AUTH_TOKEN")
+twilio_from = os.getenv("TWILIO")
 bot = telebot.TeleBot(chave_api)
-account_sid = 'KEY'
-auth_token = 'KEY'
-twilio_from = 'KEY'
 client = Client(account_sid, auth_token)
 
 if not os.path.exists("imagens"):
